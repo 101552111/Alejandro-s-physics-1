@@ -12,7 +12,7 @@ float y = 500;
 float frequency = 1;
 float amplitude = 100;
 
-// Change world state
+// Change the world state
 void update()
 {
   time += 1.0 / TARGET_FPS;
@@ -22,7 +22,7 @@ void update()
   y = y + (cos(time * frequency)) * frequency * amplitude * dt;
 }
 
-// Display world state
+// Display the world state
 void draw()
 {
  BeginDrawing();
