@@ -346,7 +346,7 @@ void draw()
 {
 	BeginDrawing();
 	ClearBackground(BLACK);
-	DrawText("Joss Moo-Young 123456789", 10, float(GetScreenHeight() - 30), 20, LIGHTGRAY);
+	DrawText("Alejandro Revollo 101552111", 10, float(GetScreenHeight() - 30), 20, LIGHTGRAY);
 
 
 	GuiSliderBar(Rectangle{ 10, 15, 1000, 20 }, "", TextFormat("%.2f", time), &time, 0, 240);
@@ -384,6 +384,24 @@ void draw()
 		// Circle.draw() on a Circle, Box.draw() on a Box
 	}
 
+	Vector2 CirclePos = { 800, 000 };
+	DrawCircleLines(CirclePos.x, CirclePos.y, 50, DARKGREEN);
+
+	float mass = 8;
+	// Gravity
+	Vector2 ForceGravity = world.accelerationGravity * mass;
+	DrawLine(CirclePos.x, CirclePos.y, CirclePos.x + ForceGravity.x, CirclePos.y + ForceGravity.y, PURPLE);
+
+	// Normal
+	Vector2 FgPerp = halfspace.getNormal() * Vector2DotProduct(ForceGravity, halfspace.getNormal());
+	Vector2 FNormal = FgPerp * -1;
+	DrawLine(CirclePos.x, CirclePos.y, CirclePos.x + FNormal.x, CirclePos.y + FNormal.y, GREEN);
+
+	// Friction
+	Vector2 FgPara = ForceGravity - FgPerp;
+	Vector2 Ffriction = FgPara * -1;
+	DrawLine(CirclePos.x, CirclePos.y, CirclePos.x + Ffriction.x, CirclePos.y + Ffriction.y, ORANGE);
+
 	EndDrawing();
 }
 
@@ -392,14 +410,14 @@ int main()
 	InitWindow(InitialWidth, InitialHeight, "GAME2005 Alejandro Revollo 101552111");
 	SetTargetFPS(TARGET_FPS);
 	halfspace.isStatic = true;
-	halfspace.position = { 200, 900 };
+	halfspace.position = { 300, 900 };
 	halfspace.setRotationDegrees(-10);
 	world.add(&halfspace);
-	halfspace2.isStatic = true;
+	/*halfspace2.isStatic = true;
 	halfspace2.position = { 600, 900 };
 	halfspace2.setRotationDegrees(10);
 	world.add(&halfspace2);
-	startPos = { 100, GetScreenHeight() - 500.0f }; 
+	startPos = { 100, GetScreenHeight() - 500.0f }; */
 
 	while (!WindowShouldClose()) // Loops TARGET_FPS times per second
 	{
